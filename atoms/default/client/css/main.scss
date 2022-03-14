@@ -1,20 +1,19 @@
-// @import "enhanced_fonts"; // for when you need special font features 
-@import "fonts";
+@import "enhanced_fonts"; // for when you need special font features
+// @import "fonts";
 @import "mq";
 @import "palette";
 @import "dcr_enhancer"; // default left column enhancer, works with inline, showcase and immersive weighting
 // @import "full_immersive_enhancer"; // full-width enhancer, to be used with immersive weighting. Removes left colum, sets 100vw atom width at any breakpoint
 
-/*----- Vertical scrollbar width used for sizing full viewport width elements -----*/
-root {
-    --scrollbar-width: 0;
-    --half-scrollbar-width: 0;
+.interactive-atom {
+  margin: 0;
+  padding: 0;
 }
 
-.interactive-atom {
-    margin: 0;
-    padding: 0;
+html {
+  scroll-behavior: smooth;
 }
+
 // uncomment to test
 // .gv-wrapper {
 //     height: 400px;
@@ -24,26 +23,140 @@ root {
 //     border-bottom: 1px solid #dcdcdc;
 // }
 
-
 /*----- App fixes -----*/
-.ios, .android {
-    .element--immersive {
-        @include mq($until: tablet) {
-            width: 100vw !important;
-            position: relative;
-            left: 50% !important;
-            right: 50% !important;
-            margin-left: -50vw !important;
-            margin-right: -50vw !important;
-        }
-        @include mq(tablet) {
-            transform: translateX(-20px);
-            width: calc(100% + 60px);
-        }
+.ios,
+.android {
+  .element--immersive {
+    @include mq($until: tablet) {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw !important;
+      margin-right: -50vw;
     }
-    
-    //remove dark mode padding in apps
-    figure.element.element-atom, figure.interactive.interactive-atom.interactive--loading {
-        padding: 0 !important;
+    @include mq(tablet) {
+      transform: translateX(-20px);
+      width: calc(100% + 60px);
     }
+  }
+
+  //remove dark mode padding in apps
+  figure.element.element-atom,
+  figure.interactive.interactive-atom.interactive--loading {
+    padding: 0 !important;
+  }
+}
+
+.element.element-atom,
+.article-body-viewer-selector figure {
+  position: sticky;
+  top: -50px;
+  padding: 0;
+  left: 0px;
+  transition: top 0.3s ease;
+
+  @include mq(tablet) {
+    margin-left: -21px;
+    margin-right: -121px;
+  }
+  @include mq(desktop) {
+    margin-left: -22px;
+    // margin-right: -339px;
+    margin-left: -11px;
+  }
+  @include mq(leftCol) {
+    margin-left: -182px;
+    margin-left: -91px;
+  }
+  @include mq(wide) {
+    margin-left: -261px;
+    margin-left: -130px;
+  }
+  &:hover {
+    top: 0px;
+  }
+}
+
+h2 {
+  padding-top: 50px;
+}
+
+.progress-nav {
+  //   position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  //   height: 42px;
+  border: 1px solid #dcdcdc;
+  border-top: none;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  &.at-top {
+    opacity: 1;
+  }
+  @include mq(leftCol) {
+    width: 1140px;
+    left: -180px;
+  }
+  @include mq(wide) {
+    width: 1300px;
+    left: -260px;
+  }
+  &:hover {
+    top: 0px;
+  }
+  .anchor-wrapper {
+    display: flex;
+    // justify-content: space-between;
+    width: 100%;
+    // padding-top: 8px;
+    position: relative;
+    height: 50px;
+    // overflow: hidden;
+    .anchor-link {
+      position: absolute;
+      font-size: 15px;
+      color: black;
+      border-bottom: none;
+      margin-top: 8px;
+      line-height: 115%;
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+        border: none;
+      }
+      span:first-child {
+        display: block;
+        font-family: $f-titlepiece;
+        font-size: 28px;
+        margin-right: 4px;
+        font-variant-numeric: lining-nums;
+        padding-left: 4px;
+        line-height: 115%;
+        &:before {
+          content: "";
+          width: 1px;
+          height: 40px;
+          position: absolute;
+          left: 0;
+          top: 6px;
+          background-color: #dcdcdc;
+        }
+      }
+      span:nth-child(2) {
+        display: none;
+      }
+      &::first-letter {
+      }
+    }
+  }
+  #_progress {
+    --scroll: 0%;
+    background: linear-gradient(to right, #121212 var(--scroll), transparent 0);
+    height: 4px;
+    z-index: 100;
+  }
 }

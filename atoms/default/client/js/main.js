@@ -1,6 +1,20 @@
-var el = document.createElement('script');
-el.src = '<%= atomPath %>/app.js';
-document.body.appendChild(el);
+// var el = document.createElement('script');
+// el.src = '<%= atomPath %>/app.js';
+// document.body.appendChild(el);
+
+const styles = [].slice.apply(document.querySelectorAll("style"));
+  const wrapper = document.querySelector("#progress-bar");
+  const parentPage = window.parent.document;
+
+  styles.forEach((style) => {
+    parentPage.body.appendChild(style);
+  });
+
+  window.frameElement.parentNode.innerHTML = wrapper.outerHTML;
+
+  var el = parentPage.createElement("script");
+  el.src = "<%= atomPath %>/app.js";
+  parentPage.body.appendChild(el);
 
 
 
